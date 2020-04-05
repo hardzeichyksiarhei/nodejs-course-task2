@@ -10,7 +10,7 @@ const columnSchema = new Schema({
   }
 });
 
-columnSchema.virtual('id').get(() => {
+columnSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 
@@ -18,7 +18,7 @@ columnSchema.set('toJSON', {
   virtuals: true
 });
 
-columnSchema.methods.toResponse = () => {
+columnSchema.methods.toResponse = function toResponse() {
   const { id, title, order } = this;
   return { id, title, order };
 };
@@ -37,7 +37,7 @@ boardSchema.post('findOneAndDelete', async board => {
   await Task.deleteMany({ boardId: board._id.toHexString() });
 });
 
-boardSchema.virtual('id').get(() => {
+boardSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 
@@ -45,11 +45,7 @@ boardSchema.set('toJSON', {
   virtuals: true
 });
 
-boardSchema.findById = cb => {
-  return this.model('Boards').find({ id: this.id }, cb);
-};
-
-boardSchema.methods.toResponse = () => {
+boardSchema.methods.toResponse = function toResponse() {
   const { id, title, columns } = this;
   return { id, title, columns: columns.map(column => column.toResponse()) };
 };

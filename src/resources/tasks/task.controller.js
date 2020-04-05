@@ -22,9 +22,6 @@ exports.getByBoardIdAndTaskId = (req, res) => {
 
   Task.getByBoardIdAndTaskId(req.params.boardId, req.params.taskId).then(
     result => {
-      console.log(
-        `get -> ${req.params.boardId}   ${req.params.taskId}   ${typeof result}`
-      );
       if (result) res.status(200).json(result);
       else res.status(404).json({});
     }
@@ -38,8 +35,6 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-  console.log(`delete -> ${req.params.boardId}   ${req.params.taskId}`);
-
   Task.delete(req.params.boardId, req.params.taskId).then(result => {
     res.status(200).json(result);
   });

@@ -24,7 +24,7 @@ const taskSchema = new Schema({
   }
 });
 
-taskSchema.virtual('id').get(() => {
+taskSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 
@@ -32,15 +32,15 @@ taskSchema.set('toJSON', {
   virtuals: true
 });
 
-taskSchema.statics.findByBoardId = (boardId, cb) => {
+taskSchema.statics.findByBoardId = function findByBoardId(boardId, cb) {
   return this.find({ boardId }, cb);
 };
 
-taskSchema.statics.findOneByBoardIdAndTaskId = (boardId, taskId, cb) => {
+taskSchema.statics.findOneByBoardIdAndTaskId = function findOneByBoardIdAndTaskId(boardId, taskId, cb) {
   return this.findOne({ boardId, _id: taskId }, cb);
 };
 
-taskSchema.methods.toResponse = () => {
+taskSchema.methods.toResponse = function toResponse() {
   const { id, title, description, order, userId, boardId, columnId } = this;
   return { id, title, description, order, userId, boardId, columnId };
 };

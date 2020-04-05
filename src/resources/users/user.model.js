@@ -20,7 +20,7 @@ userSchema.post('findOneAndDelete', async user => {
   await Task.updateMany({ userId: user._id.toHexString() }, { userId: null });
 });
 
-userSchema.virtual('id').get(() => {
+userSchema.virtual('id').get(function() {
   return this._id.toHexString();
 });
 
@@ -28,7 +28,7 @@ userSchema.set('toJSON', {
   virtuals: true
 });
 
-userSchema.methods.toResponse = () => {
+userSchema.methods.toResponse = function toResponse() {
   const { id, name, login } = this;
   return { id, name, login };
 };
